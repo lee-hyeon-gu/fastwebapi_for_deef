@@ -20,16 +20,14 @@ def test_get(request:Request):
     return templates.TemplateResponse('post_text.html',{'request':request})
 
 @app.post('/result_page')
-async def create_upload_file(video: UploadFile = File(...)):
-    with open(f"./{video.filename}", "wb") as buffer:
+async def create_upload_file(request:Request,video: UploadFile = File(...)):
+    with open(f"./upload_data/{video.filename}", "wb") as buffer:
         shutil.copyfileobj(video.file, buffer)
-    return {"filename": video.filename}
+    #return {"filename": video.filename}
     # output = infer(file_save_folder+file.filename)
-    # return templates.TemplateResponse("result_page.html", {'request': request})#,'result':output})
+    #return templates.TemplateResponse("result_page.html", {'request': request})#,'result':output})
 
-# # @app.post('/result_page')
-# # def test_get(request:Request):
-#     return templates.TemplateResponse('result_page.html',{'request':request})
+    return templates.TemplateResponse('result_page.html',{'request':request})
 
 
 
